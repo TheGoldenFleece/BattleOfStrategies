@@ -5,7 +5,7 @@
 namespace BattleOfStrategies.Migrations
 {
     /// <inheritdoc />
-    public partial class AddMilitaryUnitToDatabase : Migration
+    public partial class MilitaryUnitConfigurationMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,13 +16,13 @@ namespace BattleOfStrategies.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Range = table.Column<float>(type: "real", nullable: false),
-                    Level = table.Column<int>(type: "int", nullable: false),
-                    Damage = table.Column<float>(type: "real", nullable: false),
-                    HP = table.Column<float>(type: "real", nullable: false),
-                    Aim = table.Column<float>(type: "real", nullable: false),
-                    AffectedArea = table.Column<float>(type: "real", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Infantryman"),
+                    Range = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
+                    Level = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
+                    Damage = table.Column<float>(type: "real", nullable: false, defaultValue: 0.2f),
+                    HP = table.Column<float>(type: "real", nullable: false, defaultValue: 1f),
+                    Aim = table.Column<float>(type: "real", nullable: false, defaultValue: 0.1f),
+                    AffectedArea = table.Column<int>(type: "int", nullable: false, defaultValue: 1)
                 },
                 constraints: table =>
                 {

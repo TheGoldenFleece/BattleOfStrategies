@@ -1,6 +1,7 @@
 ﻿using BattleOfStrategies.Data;
 using BattleOfStrategies.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BattleOfStrategies.Controllers
 {
@@ -12,21 +13,33 @@ namespace BattleOfStrategies.Controllers
             _db = db;
         }
 
-        //Get
         public IActionResult Index()
         {
-            IEnumerable<MilitaryUnit> objMilitaryUnitList = _db.MilitaryUnits;
+            IEnumerable<MilitaryUnit> militaryUnits = _db.MilitaryUnits;
 
-            return View(objMilitaryUnitList);
+            return View(militaryUnits);
         }
 
+        //Get
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //public IActionResult Create()
-        //{
-        //    IEnumerable<MilitaryUnit> objMilitaryUnitList = _db.MilitaryUnits;
+        //Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(MilitaryUnit obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.MilitaryUnits.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-        //    return View(objMilitaryUnitList);
-        //}
+            return View();
+        }
 
     }
 }

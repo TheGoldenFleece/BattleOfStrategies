@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BattleOfStrategies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231217132331_AddMilitaryUnitToDatabase")]
-    partial class AddMilitaryUnitToDatabase
+    [Migration("20231218111522_MilitaryUnitConfigurationMigration")]
+    partial class MilitaryUnitConfigurationMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,27 +32,44 @@ namespace BattleOfStrategies.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<float>("AffectedArea")
-                        .HasColumnType("real");
+                    b.Property<int>("AffectedArea")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1)
+                        .HasAnnotation("AffectedArea", new[] { 1, 5 });
 
                     b.Property<float>("Aim")
-                        .HasColumnType("real");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("real")
+                        .HasDefaultValue(0.1f);
 
                     b.Property<float>("Damage")
-                        .HasColumnType("real");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("real")
+                        .HasDefaultValue(0.2f);
 
                     b.Property<float>("HP")
-                        .HasColumnType("real");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("real")
+                        .HasDefaultValue(1f);
 
                     b.Property<int>("Level")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1)
+                        .HasAnnotation("Level", new[] { 1, 5 });
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Infantryman");
 
-                    b.Property<float>("Range")
-                        .HasColumnType("real");
+                    b.Property<int>("Range")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1)
+                        .HasAnnotation("Range", new[] { 1, 10 });
 
                     b.HasKey("Id");
 
